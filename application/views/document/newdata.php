@@ -39,7 +39,6 @@
 			</div><!-- /.box-header -->
 			<!-- form start -->
 			<form role="form" action="<?php echo base_url('document/postdata'); ?>" method="post" enctype="multipart/form-data">
-				
 				<div class="box-body">
 					<div class="form-group">
 						<label for="exampleInputEmail1">

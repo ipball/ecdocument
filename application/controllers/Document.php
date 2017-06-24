@@ -16,7 +16,7 @@ class Document extends CI_Controller
 	public function index()
 	{
 		$config = array();
-		$config['base_url'] = base_url('categorie/index');
+		$config['base_url'] = base_url('document/index');
 		$config['total_rows'] = $this->Document_model->record_count($this->input->get('keyword'));
 		$config['per_page'] = $this->input->get('keyword') == NULL ? 14 : 999;
 		$config['uri_segment'] = 3;
