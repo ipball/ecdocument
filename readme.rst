@@ -1,69 +1,45 @@
 ###################
-What is CodeIgniter
+ecDocument คืออะไร?
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+ระบบเอกสาร ที่ผมได้เขียนขึ้นมานั้น ผมได้ใช้ php framework ของ Codeigniter 3 ในการเขียนขึ้นมา ซึ่งผมเพิ่งเริ่มเขียน Codeigniter framework มาได้ไม่นาน ซึ่งเดิมทีผมตั้งใจจะเริ่มต้นกับ Laravel framework แต่ก็ตัดสินใจเลือก Codeigniter ก่อน เนื่องจากมีหลายๆความคิดเห็นบนอินเตอร์เน็ตว่า Codeigniter เขียนง่าย สำหรับระบบเอกสารที่ผมเอามาแจกนั้นเป็นระบบง่ายๆ ไม่ซับซ้อนมากนักเหมาะสำหรับคนที่เพิ่มเริ่มหัดเขียน Codeigniter นำไปศึกษา โดยผมตั้งใจไว้ว่า พยายามเผยแพร่ Source code ที่คนอ่านแล้วเข้าใจไม่ยาก และระบบเอกสารผมได้นำ AdminLTE2 มาเป็นหน้าตาเว็บไซต์ซึ่งเพิ่งเริ่มใช้เวอร์ชั่นนี้เหมือนกันครับ และสุดท้ายสุดถ้าใครเกิดปัญหาตรงไหน สอบถามได้ทาง Comment ด้านล่างนี้นะครับ
 
-*******************
-Release Information
-*******************
-
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<http://www.codeigniter.com/download>`_ page.
 
 **************************
-Changelog and New Features
+การเปลี่ยนแปลงไฟล์และเวอร์ชั่นโปรแกรม
 **************************
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+- แก้ไขให้เก็บ session จากเดิมในฐานข้อมูลเป็นไฟล์
+- แก้ไขหน้าจัดการเอกสาร กรณีมีหลายหน้าแล้วกดตัวเลขหน้าลิงค์ไปหน้าอื่น
 
 *******************
-Server Requirements
+ความต้องการของเครื่อง SERVER
 *******************
 
-PHP version 5.4 or newer is recommended.
-
-It should work on 5.2.4 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+PHP version 5.4 หรือใหม่กว่า
+MySQL Database 5
+Apache
 
 ************
-Installation
+การติดตั้ง
 ************
 
-Please see the `installation section <http://www.codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+1. แก้ไขไฟล์ application/config/database.php (เปลี่ยนข้อมูลฐานข้อมูล)
+2. แก้ไขไฟล์ application/config/config.php
+    บรรทัดที่ 20 เปลี่ยน URL เว็บไซต์ให้ตรงกับข้อมูลของคุณเช่นเว็บ http://www.itoffside.com/ เป็นต้น
+3. ตั้งค่ากำหนดสิทธิ์อัพโหลดไฟล์ที่โฟล์เดอร์ session และ uploads ให้ทุกคนสามารถอัพโหลดได้ (CHMOD 777)
+
 
 *******
-License
+เงื่อนไขการใช้งาน
 *******
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+ทุกคนมีสิทธิ์ในการแก้ไขไฟล์และใช้งานได้ พร้อมทั้งทำซ้ำแลแจกจ่ายไปยังแหล่งต่างๆได้
+แต่**ห้ามนำไปจำหน่ายโดยเด็ดขาด
 
 *********
-Resources
+Special Thanks
 *********
-
--  `User Guide <http://www.codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <http://www.codeigniter.com/irc>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+ขอขอบคุณทุกๆท่านที่ทำให้นักพัฒนามีแรงบรรดาลใจในการพัฒนาต่อไปโดยการ บอกต่อ(Share) หรือท่านใดใจดีก็บริจาคให้กับทางผู้พัฒนาได้ทุกทาง เช่น ธนาคาร, เพลย์พาล เป็นต้น
+ธวัชศักดิ์ แตงเอี่ยม
+ขอบคุณครับ
