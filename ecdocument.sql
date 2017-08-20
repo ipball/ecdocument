@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 20, 2017 at 10:55 AM
+-- Generation Time: Aug 20, 2017 at 11:08 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -99,7 +99,7 @@ CREATE TABLE `ecdoc_users` (
 --
 
 INSERT INTO `ecdoc_users` (`id`, `username`, `password`, `imagename`, `display_name`, `permission`, `permission_read`, `permission_write`, `permission_edit`, `permission_delete`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '', 'Tawatsak Tangeaim', 'ADMIN', 0, 0, 0, 0),
+(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', '', 'Administrator', 'ADMIN', 0, 0, 0, 0),
 (2, 'tawatsak', '860074d2d36ec43e78e83c7663155336', '', 'นายบอล ดอทคอม', 'ADMIN', 0, 0, 0, 0),
 (3, 'test1', '5a105e8b9d40e1329780d62ea2265d8a', '', 'TEST2', 'USER', 0, 0, 0, 0);
 
