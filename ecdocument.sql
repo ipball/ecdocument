@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2017 at 05:24 PM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 5.5.33
+-- Generation Time: Aug 20, 2017 at 10:55 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,20 +23,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Table structure for table `ecdoc_categories`
 --
 
-CREATE TABLE `categories` (
+CREATE TABLE `ecdoc_categories` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `categories`
+-- Dumping data for table `ecdoc_categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `description`) VALUES
+INSERT INTO `ecdoc_categories` (`id`, `name`, `description`) VALUES
 (1, 'งานวิจัย', 'งานวิจัยถูกเก็บไว้ที่แห่งนี้...'),
 (2, 'คุณภาพ ISO', 'เอกสารรับประกันคุณภาพตามหลัก ISO ของบริษัท\r\nเพื่อใช้อ้างอิงกับลูกค้า'),
 (3, 'หลักการบริหาร', 'เอกสารสำหรับพนักบริหาร...'),
@@ -47,10 +47,10 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `documents`
+-- Table structure for table `ecdoc_documents`
 --
 
-CREATE TABLE `documents` (
+CREATE TABLE `ecdoc_documents` (
   `id` int(11) NOT NULL,
   `document_code` varchar(30) COLLATE utf8_unicode_ci NOT NULL COMMENT 'รหัสเอกสาร',
   `register_date` datetime NOT NULL COMMENT 'วันที่ลงทะเบียนเอกสาร',
@@ -67,10 +67,10 @@ CREATE TABLE `documents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `documents`
+-- Dumping data for table `ecdoc_documents`
 --
 
-INSERT INTO `documents` (`id`, `document_code`, `register_date`, `reference`, `topic`, `store`, `filename`, `description`, `created_date`, `modified_date`, `created_by`, `modified_by`, `categorie_id`) VALUES
+INSERT INTO `ecdoc_documents` (`id`, `document_code`, `register_date`, `reference`, `topic`, `store`, `filename`, `description`, `created_date`, `modified_date`, `created_by`, `modified_by`, `categorie_id`) VALUES
 (2, 'DC1235466', '2015-09-10 00:00:00', 'ไม่มีเอกสารอ้างอิง', 'ISO9000', 'ตู้ชั้นที่ 1', '560969afd7f66.pdf', 'AAAAAAAAAAAAAAAAAAAAAAAAAA\r\nBBBBBBBBBBBBBBBBBBBBBBBB', '2015-09-28 18:24:15', '2017-05-02 03:50:31', 1, 1, 5),
 (3, 'DC3425622', '2015-10-01 00:00:00', 'HDDGG-011', 'OTH00111', '', '5609735ea26d3.pdf', '', '2015-09-28 19:05:34', '2015-09-28 19:05:34', 1, 1, 6),
 (4, 'DDDDDD', '2017-06-23 00:00:00', 'PM-932221', 'เอกสารสอบจบ', '', '594e8137e5e88.pdf', 'เอกสารสำคัญ', '2017-06-24 17:11:52', '2017-06-24 17:11:52', 1, 1, 1);
@@ -78,15 +78,16 @@ INSERT INTO `documents` (`id`, `document_code`, `register_date`, `reference`, `t
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `ecdoc_users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `ecdoc_users` (
   `id` int(11) NOT NULL,
   `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `imagename` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `display_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `permission` enum('USER','ADMIN') COLLATE utf8_unicode_ci NOT NULL,
   `permission_read` bigint(20) NOT NULL DEFAULT '0',
   `permission_write` bigint(20) NOT NULL DEFAULT '0',
   `permission_edit` bigint(20) NOT NULL DEFAULT '0',
@@ -94,32 +95,34 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `ecdoc_users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `imagename`, `display_name`, `permission_read`, `permission_write`, `permission_edit`, `permission_delete`) VALUES
-(1, 'tawatsak', '81dc9bdb52d04dc20036dbd8313ed055', '', 'Tawatsak Tangeaim', 0, 0, 0, 0);
+INSERT INTO `ecdoc_users` (`id`, `username`, `password`, `imagename`, `display_name`, `permission`, `permission_read`, `permission_write`, `permission_edit`, `permission_delete`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '', 'Tawatsak Tangeaim', 'ADMIN', 0, 0, 0, 0),
+(2, 'tawatsak', '860074d2d36ec43e78e83c7663155336', '', 'นายบอล ดอทคอม', 'ADMIN', 0, 0, 0, 0),
+(3, 'test1', '5a105e8b9d40e1329780d62ea2265d8a', '', 'TEST2', 'USER', 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `categories`
+-- Indexes for table `ecdoc_categories`
 --
-ALTER TABLE `categories`
+ALTER TABLE `ecdoc_categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `documents`
+-- Indexes for table `ecdoc_documents`
 --
-ALTER TABLE `documents`
+ALTER TABLE `ecdoc_documents`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indexes for table `ecdoc_users`
 --
-ALTER TABLE `users`
+ALTER TABLE `ecdoc_users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -127,20 +130,20 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT for table `ecdoc_categories`
 --
-ALTER TABLE `categories`
+ALTER TABLE `ecdoc_categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `documents`
+-- AUTO_INCREMENT for table `ecdoc_documents`
 --
-ALTER TABLE `documents`
+ALTER TABLE `ecdoc_documents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT for table `ecdoc_users`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `ecdoc_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

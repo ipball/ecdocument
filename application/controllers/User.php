@@ -6,7 +6,112 @@ class User extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('pagination');
 		$this->load->model('User_model');
+	}
+
+	public function index() {
+		$config = array();
+		$config['base_url'] = base_url('user/index');
+		$config['total_rows'] = $this->User_model->count($this->input->get('keyword'));
+		$config['per_page'] = $this->input->get('keyword') == NULL ? 14 : 999;
+		$config['uri_segment'] = 3;
+		$choice = $config['total_rows'] / $config['per_page'];
+		$config['num_links'] = round($choice);
+
+		$this->pagination->initialize($config);
+
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$data['results'] = $this->User_model->fetch_user($config['per_page'], $page, $this->input->get('keyword'));
+		$data['link'] = $this->pagination->create_links();
+		$data['total_rows'] = $config['total_rows'];
+
+		$this->load->view('template/backheader');
+		$this->load->view('user/mainpage', $data);
+		$this->load->view('template/backfooter');
+	}
+
+	public function newdata() {
+		$this->load->view('template/backheader');
+		$this->load->view('user/newdata');
+		$this->load->view('template/backfooter');
+	}
+
+	public function edit($id) {
+		$data['user'] = $this->User_model->read_user($id);
+		$this->load->view('template/backheader');
+		$this->load->view('user/edit', $data);
+		$this->load->view('template/backfooter');
+		$this->output->enable_profiler(TRUE);
+	}
+
+	public function postdata() {
+		if ($this->input->server('REQUEST_METHOD') == TRUE) {
+			if($this->input->post('username')=='admin' && $this->session->userdata('login_id')!= 1){
+				redirect('dashboard/permission','refresh');
+				exit();
+			}
+
+
+            //------------------------------------------------------------------
+			if ($this->input->post('id') == '') {
+				$this->form_validation->set_rules('permission', 'ประเภทผู้ใช้งาน', 'required', array('required' => 'ค่าห้ามว่าง!'));
+				$this->form_validation->set_rules('username', 'ชื่อผู้ใช้งาน', 'trim|required|min_length[5]|max_length[12]|is_unique[users.username]|alpha_numeric', array(
+					'trim' => 'มีค่าว่าง',
+					'required' => 'ค่าห้ามว่าง',
+					'min_length' => 'ต้องมากกว่า 4 ตัวอักษรขึ้นไป',
+					'max_length' => 'ต้องน้อยกว่า 13 ตัวอักษรลงไป',
+					'is_unique' => 'มีชื่อผู้ใช้งานอยู่ในระบบแล้ว',
+					'alpha_numeric' => 'ต้องเป็นตัวอักษรภาษาอังกฤษและตัวเลขเท่านั้น'
+					));
+				$this->form_validation->set_rules('password', 'รหัสผ่านเข้าใช้งาน', 'trim|required|min_length[5]|max_length[20]|alpha_numeric', array(
+					'trim' => 'มีค่าว่าง',
+					'required' => 'ค่าห้ามว่าง',
+					'min_length' => 'ต้องมากกว่า 5 ตัวอักษรขึ้นไป',
+					'max_length' => 'ต้องน้อยกว่า 21 ตัวอักษรลงไป',
+					'alpha_numeric' => 'ต้องเป็นตัวอักษรภาษาอังกฤษและตัวเลขเท่านั้น'
+					));
+				$this->form_validation->set_rules('display_name', 'ชื่อ นามสกุล', 'required', array('required' => 'ค่าห้ามว่าง!'));
+			} else {
+				$this->form_validation->set_rules('password', 'รหัสผ่านเข้าใช้งาน', 'trim|min_length[5]|max_length[20]|alpha_numeric', array(
+					'trim' => 'มีค่าว่าง',
+					'min_length' => 'ต้องมากกว่า 5 ตัวอักษรขึ้นไป',
+					'max_length' => 'ต้องน้อยกว่า 21 ตัวอักษรลงไป',
+					'alpha_numeric' => 'ต้องเป็นตัวอักษรภาษาอังกฤษและตัวเลขเท่านั้น'
+					));
+				$this->form_validation->set_rules('display_name', 'ชื่อ นามสกุล', 'required', array('required' => 'ค่าห้ามว่าง!'));
+			}
+
+
+			if ($this->form_validation->run() == TRUE) {
+				$this->session->set_flashdata(
+					array(
+						'msginfo' => '<div class="pad margin no-print"><div style="margin-bottom: 0!important;" class="callout callout-info"><h4><i class="fa fa-info"></i> ข้อความจากระบบ</h4>ทำรายการสำเร็จ</div></div>'
+						)
+					);
+
+				$this->User_model->entry_user($this->input->post('id'));
+
+
+				redirect('user', 'refresh');
+			} else {
+				$data = array(
+					'error_permission' => form_error('permission'),
+					'username' => set_value('username'),
+					'error_username' => form_error('username'),
+					'password' => set_value('password'),
+					'error_password' => form_error('password'),
+					'display_name' => set_value('display_name'),
+					'error_display_name' => form_error('display_name')
+					);
+				$this->session->set_flashdata($data);
+			}
+			if ($this->input->post('id') == NULL) {
+				redirect('user/newdata');
+			} else {
+				redirect('user/edit/' . $this->input->post('id'));
+			}
+		}
 	}
 
 	public function login()
@@ -53,11 +158,20 @@ class User extends CI_Controller
 			if($this->User_model->record_count($this->input->post('username'),$this->input->post('password')) == 1 && $this->form_validation->run() == TRUE){
 				$this->User_model->entry_user($this->session->userdata('login_id'));
 				$this->session->set_userdata(array('display_name'=>$this->input->post('display_name')));
-				redirect('document','refresh');
+				redirect('user','refresh');
 			}else{
 				redirect('user/profile','refresh');
 			}
 		}
+	}
 
+	public function remove($id) {
+		if($this->session->userdata('username')!='admin'){
+			redirect('dashboard/permission','refresh');
+			exit();
+		}
+
+		$this->User_model->remove_user($id);
+		redirect('user', 'refresh');
 	}
 }
