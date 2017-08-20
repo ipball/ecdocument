@@ -65,7 +65,7 @@ class User_model extends CI_Model
 		}
 
 		if ($this->input->post('password') != '') {
-			$data['password'] = $this->salt_pass($this->input->post('username'), $this->input->post('password'));
+			$data['password'] = $this->salt_pass($this->input->post('password'));
 		}
 
 		if ($id == NULL) {
