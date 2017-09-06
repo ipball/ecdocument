@@ -113,7 +113,7 @@
 							</a>
 						</div>
 						<div class="pull-right">
-							<a href="<?php echo  base_url('user/logout'); ?>" class="btn btn-default btn-flat">
+							<a href="<?php echo  base_url('dashboard/logout'); ?>" class="btn btn-default btn-flat">
 								Sign out
 							</a>
 						</div>
