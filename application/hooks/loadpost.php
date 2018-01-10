@@ -8,7 +8,7 @@ class Loadpost {
 
     public function check_login() {
         if ($this->CI->session->userdata('login_id') == NULL) {
-            if ($this->CI->router->method != 'login' && $this->CI->router->method != 'validlogin' && $this->CI->router->method != 'listview' && $this->CI->router->method !='read') {
+            if ($this->CI->router->method != 'login' && $this->CI->router->method != 'validlogin') {
                 redirect('user/login', 'refresh');
                 exit();
             }

@@ -34,6 +34,19 @@ class Categorie_model extends CI_Model
 		return FALSE;
 	}
 
+	public function fetch_all(){
+		$query = $this->db->get('categories');
+		if($query->num_rows() > 0)
+		{
+			foreach($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return FALSE;
+	}
+
 	public function entry_categorie($id)
 	{
 		$this->name = $this->input->post('name');

@@ -174,6 +174,24 @@
 				MENU
 			</li>
 			<!-- Optionally, you can add icons to the links -->
+			<li>
+				<a href="<?php echo base_url(); ?>">
+					<i class="fa fa-link">
+					</i>
+					<span>
+						-- รายการเอกสาร --
+					</span>
+				</a>
+			</li>	
+			<li class="<?php echo activate_menu('usergroup'); ?>">
+				<a href="<?php echo base_url('usergroup'); ?>">
+					<i class="fa fa-link">
+					</i>
+					<span>
+						จัดการกลุ่มผู้ใช้
+					</span>
+				</a>
+			</li>			
 			<li class="<?php echo activate_menu('user'); ?>">
 				<a href="<?php echo base_url('user'); ?>">
 					<i class="fa fa-link">

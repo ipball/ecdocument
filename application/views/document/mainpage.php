@@ -49,7 +49,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if(!empty($results)){ foreach ($results as $data) { ?>
+                                    <?php
+                                    if(!empty($results)){
+                                        foreach ($results as $data) {
+                                            $permission = $this->Permission_model->permission_by_usergroup_and_categorie($usergroup_id, $data->categorie_id);
+                                            if($permission->read == 1){
+                                    ?>
                                         <tr role="row">
                                             <td>
                                             <a href="<?php echo base_url('document/edit/'.$data->id); ?>"><?php echo  $data->document_code; ?></a>
@@ -64,7 +69,7 @@
                                             	<a class="btn btn-danger btn-xs" href="<?php echo  base_url('document/confrm/'.$data->id); ?>" role="button"><i class="fa fa-fw fa-trash"></i> ลบข้อมูล</a>
                                             </td>
                                         </tr>
-                                    <?php } } ?>
+                                    <?php } } } ?>
                                 </tbody>
 
                             </table>

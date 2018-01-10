@@ -33,9 +33,12 @@
 					<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 						<div class="row">
 							<div class="col-sm-6">
-								<a class="btn btn-default" href="<?php echo  base_url('document/listview'); ?>" role="button">
+								<a class="btn btn-default btn-sm" href="<?php echo  base_url('document/listview'); ?>" role="button">
 									<i class="fa fa-fw fa-refresh">
-									</i>Refresh Data
+									</i> Refresh Data
+								</a>
+								<a class="btn btn-info btn-sm" href="<?php echo  base_url('document'); ?>" role="button">
+									<i class="fa fa-cog"></i> กลับไปหน้าจัดการ
 								</a>
 							</div>
 							<div class="col-sm-6">
@@ -82,6 +85,8 @@
 										{
 											foreach($results as $data)
 											{
+												$permission = $this->Permission_model->permission_by_usergroup_and_categorie($usergroup_id, $data->categorie_id);
+												if($permission->read == 1){
 												?>
 												<tr role="row">
 													<td>
@@ -112,6 +117,7 @@
 													</td>
 												</tr>
 												<?php
+												}
 											}
 										} ?>
 									</tbody>

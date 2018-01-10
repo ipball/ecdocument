@@ -57,7 +57,8 @@ class User_model extends CI_Model
 	public function entry_user($id) {
 		$data = array(
 			'display_name' => $this->input->post('display_name'),
-			'username' => $this->input->post('username')			
+			'username' => $this->input->post('username'),
+			'usergroup_id' => $this->input->post('usergroup_id')			
 			);
 
 		if($this->input->post('permission') != ''){

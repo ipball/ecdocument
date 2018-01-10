@@ -36,6 +36,17 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputEmail1">กลุ่มผู้ใช้</label> <?php echo $this->session->flashdata('error_usergroup_id'); ?>
+                        <select class="form-control" name="usergroup_id">
+                            <option value="">
+                                เลือกข้อมูล
+                            </option>
+                            <?php foreach($usergroup as $item): ?>
+                                <option value="<?php echo $item->id ?>"><?php echo $item->name; ?></option>
+                            <?php endforeach; ?>     
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputEmail1">ชื่อผู้ใช้งาน</label> <?php echo $this->session->flashdata('error_username'); ?>
                         <input type="text" id="username" class="form-control" name="username" value="<?php echo $this->session->flashdata('username'); ?>">
                     </div>

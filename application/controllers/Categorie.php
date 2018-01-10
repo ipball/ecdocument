@@ -8,6 +8,11 @@ class Categorie extends CI_Controller
 		parent::__construct();
 		$this->load->library('pagination');
 		$this->load->model('Categorie_model');
+		/* check permission admin */
+		if($this->session->userdata('permission')!='ADMIN'){
+			redirect('dashboard/permission','refresh');
+			exit();
+		}		
 	}
 
 	public function index()
