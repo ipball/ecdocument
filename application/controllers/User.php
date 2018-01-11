@@ -109,13 +109,13 @@ class User extends CI_Controller
             } else {
                 $data = array(
                     'error_permission' => form_error('permission'),
-                    'username' => set_value('username'),
+                    'e_username' => set_value('username'),
                     'error_username' => form_error('username'),
-                    'password' => set_value('password'),
+                    'e_password' => set_value('password'),
                     'error_password' => form_error('password'),
-                    'display_name' => set_value('display_name'),
+                    'e_display_name' => set_value('display_name'),
                     'error_display_name' => form_error('display_name'),
-                    'usergroup_id' => set_value('usergroup_id'),
+                    'e_usergroup_id' => set_value('usergroup_id'),
                     'error_usergroup_id' => form_error('usergroup_id'),
                 );
                 $this->session->set_flashdata($data);

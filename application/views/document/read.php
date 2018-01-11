@@ -1,5 +1,4 @@
 <div class="content-wrapper">
-	<div class="container">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
@@ -23,8 +22,8 @@
 
 		<!-- Main content -->
 		<section class="content">
-			<div class="box box-default">
-				<div class="box-header with-border">
+			<div class="box">
+				<div class="box-header">
 					<h3 class="box-title">
 						<?php echo $result->topic; ?>
 					</h3>
@@ -98,5 +97,4 @@
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->
 		</section><!-- /.content -->
-	</div><!-- /.container -->
 </div><!-- /.content-wrapper -->

@@ -1,5 +1,4 @@
 <div class="content-wrapper">
-	<div class="container">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
@@ -23,8 +22,8 @@
 
 		<!-- Main content -->
 		<section class="content">
-			<div class="box box-default">
-				<div class="box-header with-border">
+			<div class="box">
+				<div class="box-header">
 					<h3 class="box-title">
 						ตารางข้อมูล
 					</h3>
@@ -36,9 +35,6 @@
 								<a class="btn btn-default btn-sm" href="<?php echo  base_url('document/listview'); ?>" role="button">
 									<i class="fa fa-fw fa-refresh">
 									</i> Refresh Data
-								</a>
-								<a class="btn btn-info btn-sm" href="<?php echo  base_url('document'); ?>" role="button">
-									<i class="fa fa-cog"></i> กลับไปหน้าจัดการ
 								</a>
 							</div>
 							<div class="col-sm-6">
@@ -142,5 +138,4 @@
 				</div><!-- /.box-body -->
 			</div><!-- /.box -->
 		</section><!-- /.content -->
-	</div><!-- /.container -->
 </div><!-- /.content-wrapper -->

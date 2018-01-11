@@ -48,15 +48,15 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">ชื่อผู้ใช้งาน</label> <?php echo $this->session->flashdata('error_username'); ?>
-                        <input type="text" id="username" class="form-control" name="username" value="<?php echo $this->session->flashdata('username'); ?>">
+                        <input type="text" id="username" class="form-control" name="username" value="<?php echo $this->session->flashdata('e_username'); ?>">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">รหัสผ่านเข้าใช้งาน</label> <?php echo $this->session->flashdata('error_password'); ?>
-                        <input type="password" id="password" class="form-control" name="password" value="<?php echo $this->session->flashdata('password'); ?>">
+                        <input type="password" id="password" class="form-control" name="password" value="<?php echo $this->session->flashdata('e_password'); ?>">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">ชื่อจริง นามสกุล</label> <?php echo $this->session->flashdata('error_display_name'); ?>
-                        <input type="text" id="display_name" class="form-control" name="display_name" value="<?php echo $this->session->flashdata('display_name'); ?>">
+                        <input type="text" id="display_name" class="form-control" name="display_name" value="<?php echo $this->session->flashdata('e_display_name'); ?>">
                     </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer">

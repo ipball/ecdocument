@@ -31,7 +31,7 @@
           <div class="alert alert-danger alert-dismissible">
                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                 <h4><i class="icon fa fa-ban"></i> คุณไม่มีสิทธิ์เข้าถึงข้อมูล!</h4>
-                ผู้ใช้โปรดตรวจสอบสิทธิ์เพื่อความถูกต้องหากมีปัญหาจากการที่ผู้ใช้ตรวจสอบแล้วไม่สามารถแก้ไขได้ โปรดแจ้ง itoffside@hotmail.com
+                ผู้ใช้โปรดตรวจสอบสิทธิ์เพื่อความถูกต้องหากมีปัญหาจากการที่ผู้ใช้ตรวจสอบแล้วไม่สามารถแก้ไขได้ โปรดแจ้ง darunee_joy_ch@hotmail.com
               </div>
         </div>
         <!-- /.box-body -->

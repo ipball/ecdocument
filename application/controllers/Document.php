@@ -133,9 +133,9 @@ class Document extends CI_Controller
 			exit();
         }
 
-        $this->load->view('template/frontheader');
+        $this->load->view('template/backheader');
         $this->load->view('document/read', $data);
-        $this->load->view('template/frontfooter');
+        $this->load->view('template/backfooter');
     }
 
     public function confrm($id)
@@ -176,9 +176,9 @@ class Document extends CI_Controller
 
         $data['usergroup_id'] = $this->session->userdata('usergroup_id');
 
-        $this->load->view('template/frontheader');
+        $this->load->view('template/backheader');
         $this->load->view('document/listview', $data);
-        $this->load->view('template/frontfooter');
+        $this->load->view('template/backfooter');
     }
 
 }
