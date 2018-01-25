@@ -8,20 +8,31 @@ class Document_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function record_count($keyword)
+	public function record_count($keyword, $param = array())
 	{
-		$this->db->like('topic', $keyword);
+		$filter = "1=1";
+		$filter .= !empty($keyword) ? " and (topic like '%{$keyword}%' or document_code like '%{$keyword}%')" : "";
+		$filter .= !empty($param['categorie_id']) ? " and categorie_id like '%{$param['categorie_id']}%'" : "";
+		$filter .= !empty($param['document_folder_id']) ? " and document_folder_id like '%{$param['document_folder_id']}%'" : "";
+		$this->db->where($filter);
 		$this->db->from('documents');
 		return $this->db->count_all_results();
 	}
 
-	public function fetch_document($limit, $start, $keryword)
+	public function fetch_document($limit, $start, $keyword, $param = array())
 	{
-		$this->db->select('documents.*,categories.name,users.display_name');
+		$filter = "1=1";
+		$filter .= !empty($keyword) ? " and (topic like '%{$keyword}%' or document_code like '%{$keyword}%')" : "";
+		$filter .= !empty($param['categorie_id']) ? " and documents.categorie_id like '%{$param['categorie_id']}%'" : "";
+		$filter .= !empty($param['document_folder_id']) ? " and documents.document_folder_id like '%{$param['document_folder_id']}%'" : "";
+
+		$this->db->select('documents.*,categories.name,users.display_name, document_folder.name as doc_type');
 		$this->db->from('documents');
 		$this->db->join('categories','categories.id=documents.categorie_id');
+		$this->db->join('document_folder','document_folder.id=documents.document_folder_id', 'left');
 		$this->db->join('users','users.id=documents.created_by');
-		$this->db->like('topic', $keryword);
+		$this->db->where($filter);
+
 		$this->db->limit($limit, $start);
 		$query = $this->db->get();
 		if($query->num_rows() > 0)
@@ -47,8 +58,11 @@ class Document_model extends CI_Model
 			'modified_date'=> date('Y-m-d H:i:s'),
 			'modified_by'  => $this->session->userdata('login_id'),
 			'categorie_id' => $this->input->post('categorie_id'),
-			'description'  => $this->input->post('description')
+			'document_folder_id' => $this->input->post('document_folder_id'),
+			'description'  => $this->input->post('description'),
+			'doc_remark' => $this->input->post('doc_remark')
 		);
+		
 		if($id == NULL)
 		{
 			$data['created_by'] = $this->session->userdata('login_id');
@@ -63,9 +77,10 @@ class Document_model extends CI_Model
 
 	public function read_document($id)
 	{
-		$this->db->select('documents.*,categories.name');
+		$this->db->select('documents.*,categories.name, document_folder.name as doc_type');
 		$this->db->from('documents');
-		$this->db->join('categories','categories.id=documents.categorie_id');
+		$this->db->join('categories','categories.id=documents.categorie_id', 'left');
+		$this->db->join('document_folder','document_folder.id=documents.document_folder_id', 'left');
 		$this->db->where('documents.id', $id);
 		$query = $this->db->get();
 		if($query->num_rows() > 0)

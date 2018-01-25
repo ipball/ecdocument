@@ -61,10 +61,26 @@
 						</select>
 					</div>
 					<div class="form-group">
+						<label for="">แฟ้มเอกสาร</label>
+						<select name="document_folder_id" class="form-control" ></select>
+					</div>
+					<div class="form-group">
 						<label for="exampleInputEmail1">
 							รหัสเอกสาร
 						</label> <?php echo $this->session->flashdata('err_document_code'); ?>
 						<input type="text" id="document_code" class="form-control" name="document_code" value="<?php echo $doc->document_code; ?>">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail1">
+							Remark เอกสาร
+						</label>
+						<br>
+						<label class="radio-inline">
+							<input type="radio" name="doc_remark" value="Normal" <?php echo ($doc->doc_remark=='Normal') ? 'checked' : '' ?> > ทั่วไป
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="doc_remark" value="ISO" <?php echo ($doc->doc_remark=='ISO') ? 'checked' : '' ?> > ISO
+						</label>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">
@@ -126,7 +142,45 @@
 	</section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 <script type="text/javascript">
-	$('#register_date').datepicker().on(picker_event,function(e)
-		{
+	$(document).ready(function () {
+		$('#register_date').datepicker().on();
+		/* onload */
+		$('select[name=document_folder_id]').html('<option value="">เลือกรายการ</option>');
+		var catSelected =  $('select[name=categorie_id]').val();
+		$.ajax({
+				type: 'GET',
+				url: '<?php echo site_url('documentfolder/list_doctype_by_categorie/'); ?>' + catSelected,			
+				dataType: 'json',
+				success: function (d) {
+					var option = '';
+					$.each(d,function(i,item){
+						option += '<option value="'+item.id+'">'+item.name+'</option>';
+					});
+
+					$('select[name=document_folder_id]').append(option);
+					/* default selected doc type */
+					$('select[name=document_folder_id]').val('<?php echo $doc->document_folder_id; ?>');
+				}
 		});
+	
+		
+
+		/* onclick */
+		$('body').on('change', 'select[name=categorie_id]', function(){
+			$('select[name=document_folder_id]').html('<option value="">เลือกรายการ</option>');
+			$.ajax({
+				type: 'GET',
+				url: '<?php echo site_url('documentfolder/list_doctype_by_categorie/'); ?>' + $('select[name=categorie_id]').val(),			
+				dataType: 'json',
+				success: function (d) {
+					var option = '';
+					$.each(d,function(i,item){
+						option += '<option value="'+item.id+'">'+item.name+'</option>';
+					});
+
+					$('select[name=document_folder_id]').append(option);
+				}
+			});	
+		});
+	});
 </script>

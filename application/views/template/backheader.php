@@ -210,6 +210,15 @@
 					</span>
 				</a>
 			</li>
+			<li class="<?php echo activate_menu('documentfolder'); ?>">
+				<a href="<?php echo base_url('documentfolder'); ?>">
+					<i class="fa fa-link">
+					</i>
+					<span>
+						จัดการแฟ้มเอกสาร
+					</span>
+				</a>
+			</li>
 			<li class="<?php echo activate_menu('document'); ?>">
 				<a href="<?php echo base_url('document'); ?>">
 					<i class="fa fa-link">

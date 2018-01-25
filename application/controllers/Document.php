@@ -12,14 +12,18 @@ class Document extends CI_Controller
         $this->load->model('Categorie_model');
         $this->load->model('Document_model');
         $this->load->model('Permission_model');
+        $this->load->model('Documentfolder_model');
     }
 
     public function index()
-    {
+    {        
+        $param['categorie_id'] = $this->input->get('categorie_id');
+        $param['document_folder_id'] = $this->input->get('document_folder_id');
+
         $data['usergroup_id'] = $this->session->userdata('usergroup_id');
         $config = array();
         $config['base_url'] = base_url('document/index');
-        $config['total_rows'] = $this->Document_model->record_count($this->input->get('keyword'));
+        $config['total_rows'] = $this->Document_model->record_count($this->input->get('keyword'), $param);
         $config['per_page'] = $this->input->get('keyword') == null ? 14 : 999;
         $config['uri_segment'] = 3;
         $choice = $config['total_rows'] / $config['per_page'];
@@ -28,10 +32,11 @@ class Document extends CI_Controller
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['results'] = $this->Document_model->fetch_document($config['per_page'], $page, $this->input->get('keyword'));
+        $data['results'] = $this->Document_model->fetch_document($config['per_page'], $page, $this->input->get('keyword'), $param);
         $data['link'] = $this->pagination->create_links();
         $data['total_rows'] = $config['total_rows'];
 
+        $data['cats'] = $this->Categorie_model->fetch_categorie(0, 0, '');
         $this->load->view('template/backheader');
         $this->load->view('document/mainpage', $data);
         $this->load->view('template/backfooter');
@@ -159,9 +164,12 @@ class Document extends CI_Controller
 
     public function listview()
     {
+        $param['categorie_id'] = $this->input->get('categorie_id');
+        $param['document_folder_id'] = $this->input->get('document_folder_id');
+
         $config = array();
         $config['base_url'] = base_url('categorie/index');
-        $config['total_rows'] = $this->Document_model->record_count($this->input->get('keyword'));
+        $config['total_rows'] = $this->Document_model->record_count($this->input->get('keyword'), $param);
         $config['per_page'] = $this->input->get('keyword') == null ? 14 : 999;
         $config['uri_segment'] = 3;
         $choice = $config['total_rows'] / $config['per_page'];
@@ -170,12 +178,13 @@ class Document extends CI_Controller
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['results'] = $this->Document_model->fetch_document($config['per_page'], $page, $this->input->get('keyword'));
+        $data['results'] = $this->Document_model->fetch_document($config['per_page'], $page, $this->input->get('keyword'), $param);
         $data['link'] = $this->pagination->create_links();
         $data['total_rows'] = $config['total_rows'];
 
         $data['usergroup_id'] = $this->session->userdata('usergroup_id');
 
+        $data['cats'] = $this->Categorie_model->fetch_categorie(0, 0, '');
         $this->load->view('template/backheader');
         $this->load->view('document/listview', $data);
         $this->load->view('template/backfooter');

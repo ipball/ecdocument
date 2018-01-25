@@ -41,19 +41,31 @@
 								<label for="exampleInputEmail1">
 									หมวดหมู่
 								</label>
-								<input type="text" id="document_code" class="form-control" name="document_code" value="<?php echo $result->name; ?>" readonly="">
+								<input type="text" class="form-control" name="" value="<?php echo $result->name; ?>" readonly="">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">
+									แฟ้มเอกสาร
+								</label>
+								<input type="text" class="form-control" name="" value="<?php echo $result->doc_type; ?>" readonly="">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">
 									รหัสเอกสาร
 								</label>
-								<input type="text" id="document_code" class="form-control" name="document_code" value="<?php echo $result->document_code; ?>" readonly="">
+								<input type="text" class="form-control" name="" value="<?php echo $result->document_code; ?>" readonly="">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">
+									เอกสาร Remark
+								</label>
+								<input type="text" class="form-control" name="" value="<?php echo $result->doc_remark; ?>" readonly="">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">
 									ชื่อเอกสาร
 								</label>
-								<input type="text" id="topic" class="form-control" name="topic" value="<?php echo $result->topic; ?>" readonly="">
+								<input type="text" id="topic" class="form-control" name="" value="<?php echo $result->topic; ?>" readonly="">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">

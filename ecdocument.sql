@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2018 at 06:44 PM
+-- Generation Time: Jan 25, 2018 at 05:46 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -57,6 +57,7 @@ CREATE TABLE `ecdoc_documents` (
   `document_code` varchar(30) NOT NULL COMMENT 'รหัสเอกสาร',
   `register_date` datetime NOT NULL COMMENT 'วันที่ลงทะเบียนเอกสาร',
   `reference` varchar(100) DEFAULT NULL COMMENT 'อ้างอิงเอกสาร',
+  `doc_remark` enum('Normal','ISO') DEFAULT NULL COMMENT 'เอกสารบ่งชี',
   `topic` varchar(100) NOT NULL COMMENT 'ชื่อเอกสาร',
   `store` varchar(100) DEFAULT NULL COMMENT 'สถานที่จัดเก็บเอกสาร',
   `filename` varchar(100) DEFAULT NULL COMMENT 'ชื่อไฟล์อัพโหลด',
@@ -65,16 +66,43 @@ CREATE TABLE `ecdoc_documents` (
   `modified_date` datetime NOT NULL COMMENT 'วันที่แก้ไข',
   `created_by` int(11) NOT NULL COMMENT 'ผู้สร้าง',
   `modified_by` int(11) NOT NULL COMMENT 'ผู้แก้ไข',
-  `categorie_id` int(11) NOT NULL COMMENT 'หมวดหมู่'
+  `categorie_id` int(11) NOT NULL COMMENT 'หมวดหมู่',
+  `document_folder_id` int(11) DEFAULT NULL COMMENT 'แฟ้มเอกสาร'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ecdoc_documents`
 --
 
-INSERT INTO `ecdoc_documents` (`id`, `document_code`, `register_date`, `reference`, `topic`, `store`, `filename`, `description`, `created_date`, `modified_date`, `created_by`, `modified_by`, `categorie_id`) VALUES
-(1, 'PU0001', '2018-01-19 00:00:00', 'TO-A01', 'จัดซื้อ 1', 'ตู้ B123', '5a56475ad7d5f.pdf', 'รายละเอียดจัดซื้อจัดจ้าง', '2018-01-10 18:03:23', '2018-01-10 18:05:38', 1, 1, 1),
-(2, 'SO0001', '2018-02-01 00:00:00', 'AO003k8', 'ยอดขายประจำไตรมาส 1', 'ตู้ A111', '5a5647c766111.pdf', 'งานขายประจำไตรมาส (ลับ)', '2018-01-10 18:05:11', '2018-01-10 18:05:11', 1, 1, 2);
+INSERT INTO `ecdoc_documents` (`id`, `document_code`, `register_date`, `reference`, `doc_remark`, `topic`, `store`, `filename`, `description`, `created_date`, `modified_date`, `created_by`, `modified_by`, `categorie_id`, `document_folder_id`) VALUES
+(1, 'PU0001', '2018-01-19 00:00:00', 'TO-A01', 'ISO', 'จัดซื้อ 1', 'ตู้ B123', '5a56475ad7d5f.pdf', 'รายละเอียดจัดซื้อจัดจ้าง', '2018-01-10 18:03:23', '2018-01-25 23:00:13', 1, 1, 6, 5),
+(2, 'SO0001', '2018-02-01 00:00:00', 'AO003k8', NULL, 'ยอดขายประจำไตรมาส 1', 'ตู้ A111', '5a5647c766111.pdf', 'งานขายประจำไตรมาส (ลับ)', '2018-01-10 18:05:11', '2018-01-10 18:05:11', 1, 1, 2, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ecdoc_document_folder`
+--
+
+CREATE TABLE `ecdoc_document_folder` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `categorie_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ecdoc_document_folder`
+--
+
+INSERT INTO `ecdoc_document_folder` (`id`, `name`, `description`, `categorie_id`) VALUES
+(1, 'ขาย 1', '													', 2),
+(2, 'ขาย 2', '													', 2),
+(3, 'ขาย 3', '													', 2),
+(4, 'บัญชี 1', '													', 6),
+(5, 'บัญชี 2', '													', 6),
+(6, 'บัญชี 3', '													', 6),
+(7, 'test01', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -193,6 +221,12 @@ ALTER TABLE `ecdoc_documents`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ecdoc_document_folder`
+--
+ALTER TABLE `ecdoc_document_folder`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ecdoc_permission`
 --
 ALTER TABLE `ecdoc_permission`
@@ -225,6 +259,12 @@ ALTER TABLE `ecdoc_categories`
 --
 ALTER TABLE `ecdoc_documents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `ecdoc_document_folder`
+--
+ALTER TABLE `ecdoc_document_folder`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ecdoc_usergroup`
