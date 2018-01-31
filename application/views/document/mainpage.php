@@ -60,14 +60,21 @@
 
                             <form action="" method="GET" name="search">
                             <div class="form-group">
-                                <select class="form-control input-sm" name="categorie_id">
-                                    <option value="">
+                                <select class="form-control input-sm" name="doc_remark" OnChange="document.search.submit();" >
+                                    <option value="" <?php echo empty($param['doc_remark']) ? 'selected' : ''; ?> >เลือกประเภทเอกสาร</option>
+                                    <option value="ISO" <?php echo ($param['doc_remark'] === 'ISO') ? 'selected' : ''; ?> >ISO</option>
+                                    <option value="Normal" <?php echo ($param['doc_remark'] === 'Normal') ? 'selected' : ''; ?> >ทั่วไป</option>
+                                </select>
+							</div>
+                            <div class="form-group">
+                                <select class="form-control input-sm" name="categorie_id" OnChange="document.search.submit();" >
+                                    <option value="" <?php echo empty($param['categorie_id']) ? 'selected' : ''; ?> >
                                         เลือกหมวดหมู่เอกสาร
                                     </option>
                                     <?php
                                     foreach($cats as $cat){
                                         ?>
-                                        <option value="<?php echo $cat->id; ?>">
+                                        <option value="<?php echo $cat->id; ?>" <?php echo ($param['categorie_id']===$cat->id) ? 'selected' : ''; ?> >
                                             <?php echo $cat->name; ?>
                                         </option>
                                         <?php
@@ -76,7 +83,7 @@
                             </div>
 
                             <div class="form-group">
-                                <select name="document_folder_id" class="form-control input-sm" ></select>
+                                <select name="document_folder_id" class="form-control input-sm" OnChange="document.search.submit();" ></select>
                             </div>
                             <input type="search" name="keyword" class="form-control input-sm" placeholder="ค้นหาชื่อเอกสาร">
 
@@ -102,6 +109,8 @@
                                         <th class="sorting" tabindex="0"  rowspan="1" colspan="1" style="width: 70px;">รหัสเอกสาร</th>
 
                                         <th class="sorting" tabindex="0"  rowspan="1" colspan="1" style="width: 200px;">ชื่อเอกสาร</th>
+                                        
+                                        <th class="sorting" tabindex="0"  rowspan="1" colspan="1" style="width: 30px;">Remark</th>
 
                                         <th class="sorting" tabindex="0"  rowspan="1" colspan="1" style="width: 30px;">วันที่เอกสาร</th>
 
@@ -142,6 +151,8 @@
                                             </td>
 
                                             <td><?php echo  $data->topic; ?></td>
+
+                                            <td><?php echo  $data->doc_remark; ?></td>
 
                                             <td><?php echo  date('d/m/Y',strtotime($data->register_date)); ?></td>
 
@@ -208,10 +219,9 @@
 <script>
 $(document).ready(function () {
     /* onload */
+    var document_folder_id = '<?php echo $this->input->get('document_folder_id'); ?>';
     $('select[name=document_folder_id]').html('<option value="">เลือกแฟ้มเอกสาร</option>');
 
-    /* onclick */
-    $('body').on('change', 'select[name=categorie_id]', function(){
         $('select[name=document_folder_id]').html('<option value="">เลือกแฟ้มเอกสาร</option>');
         $.ajax({
             type: 'GET',
@@ -224,8 +234,8 @@ $(document).ready(function () {
                 });
 
                 $('select[name=document_folder_id]').append(option);
+                $('select[name=document_folder_id').val(document_folder_id);
             }
         });	
-    });
 });
 </script>

@@ -35,7 +35,7 @@
                                 </div>                                
                             </th>
                         </tr>
-                        <?php $i=0; foreach($categories as $item): ?>
+                        <?php if(!empty($categories)): $i=0; foreach($categories as $item): ?>
                             <tr>
                                 <td style="vertical-align: middle;">
                                     <?php echo $item->name; ?>
@@ -47,9 +47,9 @@
                                     </div>
                                 </td>
                             </tr>
-                        <?php $i++; endforeach; ?>
+                        <?php $i++; endforeach; endif; ?>
                     </table>
-                    <input type="hidden" value="<?php echo $i; ?>" name="categorie_count">
+                    <input type="hidden" value="<?php echo !empty($categories) ? $i : 0; ?>" name="categorie_count">
                 </div><!-- /.box-body -->
                 <div class="box-footer">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-save"></i> บันทึกข้อมูล</button>

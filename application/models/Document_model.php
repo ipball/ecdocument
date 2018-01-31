@@ -12,6 +12,7 @@ class Document_model extends CI_Model
 	{
 		$filter = "1=1";
 		$filter .= !empty($keyword) ? " and (topic like '%{$keyword}%' or document_code like '%{$keyword}%')" : "";
+		$filter .= !empty($param['doc_remark']) ? " and doc_remark = '{$param['doc_remark']}'" : "";
 		$filter .= !empty($param['categorie_id']) ? " and categorie_id like '%{$param['categorie_id']}%'" : "";
 		$filter .= !empty($param['document_folder_id']) ? " and document_folder_id like '%{$param['document_folder_id']}%'" : "";
 		$this->db->where($filter);
@@ -23,6 +24,7 @@ class Document_model extends CI_Model
 	{
 		$filter = "1=1";
 		$filter .= !empty($keyword) ? " and (topic like '%{$keyword}%' or document_code like '%{$keyword}%')" : "";
+		$filter .= !empty($param['doc_remark']) ? " and doc_remark = '{$param['doc_remark']}'" : "";
 		$filter .= !empty($param['categorie_id']) ? " and documents.categorie_id like '%{$param['categorie_id']}%'" : "";
 		$filter .= !empty($param['document_folder_id']) ? " and documents.document_folder_id like '%{$param['document_folder_id']}%'" : "";
 

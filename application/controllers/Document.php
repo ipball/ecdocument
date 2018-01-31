@@ -17,6 +17,7 @@ class Document extends CI_Controller
 
     public function index()
     {        
+        $param['doc_remark'] = $this->input->get('doc_remark');
         $param['categorie_id'] = $this->input->get('categorie_id');
         $param['document_folder_id'] = $this->input->get('document_folder_id');
 
@@ -36,6 +37,7 @@ class Document extends CI_Controller
         $data['link'] = $this->pagination->create_links();
         $data['total_rows'] = $config['total_rows'];
 
+        $data['param'] = $param;
         $data['cats'] = $this->Categorie_model->fetch_categorie(0, 0, '');
         $this->load->view('template/backheader');
         $this->load->view('document/mainpage', $data);
@@ -164,6 +166,7 @@ class Document extends CI_Controller
 
     public function listview()
     {
+        $param['doc_remark'] = $this->input->get('doc_remark');
         $param['categorie_id'] = $this->input->get('categorie_id');
         $param['document_folder_id'] = $this->input->get('document_folder_id');
 
@@ -185,6 +188,7 @@ class Document extends CI_Controller
         $data['usergroup_id'] = $this->session->userdata('usergroup_id');
 
         $data['cats'] = $this->Categorie_model->fetch_categorie(0, 0, '');
+        $data['param'] = $param;
         $this->load->view('template/backheader');
         $this->load->view('document/listview', $data);
         $this->load->view('template/backfooter');
