@@ -7,8 +7,8 @@ class Usergroup extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('pagination');
-        $this->load->model('Usergroup_model');
-        $this->load->model('Permission_model');
+        	$this->load->model('Usergroup_model');
+        	$this->load->model('Permission_model');
 		$this->load->model('Categorie_model');
 		
 		/* check permission admin */
@@ -47,8 +47,9 @@ class Usergroup extends CI_Controller
 	}
 
 	public function edit($id) {
-        $data['categories'] = $this->Categorie_model->fetch_all();        
-        
+       		$categories = $this->Categorie_model->fetch_all();      
+		$data['categories'] = !empty($categories) ? $this->Categorie_model->fetch_all() : array();
+        	
 		$data['usergroup'] = $this->Usergroup_model->read_usergroup($id);
 		$this->load->view('template/backheader');
 		$this->load->view('usergroup/edit', $data);
