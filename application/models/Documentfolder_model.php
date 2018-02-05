@@ -20,9 +20,12 @@ class Documentfolder_model extends CI_Model
 
 	public function fetch_documentfolder($limit, $start,$keryword)
 	{
-		$this->db->like('name',$keryword);
+		$this->db->select('f.*, c.name as cname');
+		$this->db->like('f.name',$keryword);
 		$this->db->limit($limit, $start);
-		$query = $this->db->get('document_folder');
+		$this->db->from('document_folder f');
+		$this->db->join('categories c', 'f.categorie_id=c.id', 'left');		
+		$query = $this->db->get();
 		if($query->num_rows() > 0)
 		{
 			foreach($query->result() as $row)

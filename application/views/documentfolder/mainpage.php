@@ -40,6 +40,7 @@
                                 <thead>
                                     <tr role="row">
                                         <th class="sorting" tabindex="0"  rowspan="1" colspan="1" style="width: 30%;">ชื่อ</th>
+                                        <th class="sorting" tabindex="0"  rowspan="1" colspan="1" style="width: 30%;">หมวดหมู่</th>
                                         <th class="sorting" tabindex="0" rowspan="1" colspan="1">รายละเอียด</th>
                                         <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width:  60px;">&nbsp;</th>
                                     </tr>
@@ -50,6 +51,7 @@
                                             <td>
                                             <a href="<?php echo base_url('documentfolder/edit/'.$data->id); ?>"><?php echo  $data->name; ?></a>
                                             </td>
+                                            <td><?php echo $data->cname; ?></td>
                                             <td><?php echo $data->description; ?></td>
                                             <td>
                                             	<a class="btn btn-danger btn-xs" href="<?php echo  base_url('documentfolder/confrm/'.$data->id); ?>" role="button"><i class="fa fa-fw fa-trash"></i> ลบข้อมูล</a>

@@ -99,7 +99,7 @@ class Documentfolder extends CI_Controller
 		$this->load->view('template/backfooter');
 	}
 
-	public function list_doctype_by_categorie($id){
+	public function list_doctype_by_categorie($id = 0){
 		$results = $this->Documentfolder_model->fetch_by_categorie($id);
 		exit(json_encode($results));
 	}
