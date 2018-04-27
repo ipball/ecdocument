@@ -100,8 +100,8 @@ CREATE TABLE `ecdoc_users` (
 
 INSERT INTO `ecdoc_users` (`id`, `username`, `password`, `imagename`, `display_name`, `permission`, `permission_read`, `permission_write`, `permission_edit`, `permission_delete`) VALUES
 (1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', '', 'Administrator', 'ADMIN', 0, 0, 0, 0),
-(2, 'tawatsak', '860074d2d36ec43e78e83c7663155336', '', 'นายบอล ดอทคอม', 'ADMIN', 0, 0, 0, 0),
-(3, 'test1', '5a105e8b9d40e1329780d62ea2265d8a', '', 'TEST2', 'USER', 0, 0, 0, 0);
+(2, 'tawatsak', '81dc9bdb52d04dc20036dbd8313ed055', '', 'นายบอล ดอทคอม', 'ADMIN', 0, 0, 0, 0),
+(3, 'test1', '81dc9bdb52d04dc20036dbd8313ed055', '', 'TEST2', 'USER', 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
